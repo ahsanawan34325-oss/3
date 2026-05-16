@@ -1,7 +1,4 @@
-<html>
-        <head><title>Downloaded HTML</title></head>
-        <body>
-            <pre style="white-space: pre-wrap; word-wrap: break-word;"><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,10 +15,10 @@
         }
 
         body {
-            background-color: #05070a; /* Deep Minimal Stark Black */
-            color: #a5d8ff; /* Soft futuristic blue text */
+            background-color: #030508; /* Ultra Dark Minimal Black */
+            color: #a5d8ff; 
             font-family: 'Share Tech Mono', monospace;
-            overflow-x: hidden;
+            overflow: hidden;
             height: 100vh;
         }
 
@@ -29,12 +26,14 @@
         .highlight { color: #00f0ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.6); }
         .cyan { color: #00f0ff; }
         .yellow { color: #ffd700; text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+        .green { color: #00ff66; text-shadow: 0 0 8px rgba(0, 255, 102, 0.4); }
+        .red { color: #ff3333; text-shadow: 0 0 8px rgba(255, 51, 51, 0.4); }
 
         /* --- 1. BOOT LOADER ANIMATION --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #030508;
+            background-color: #020305;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -43,12 +42,12 @@
         }
 
         .arc-reactor {
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(0, 240, 255, 0.1);
+            width: 85px;
+            height: 85px;
+            border: 4px solid rgba(0, 240, 255, 0.05);
             border-top: 4px solid #00f0ff;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
             animation: spin 1s linear infinite;
         }
 
@@ -60,7 +59,7 @@
         .load-text {
             margin-top: 25px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             letter-spacing: 3px;
             color: #00f0ff;
             text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
@@ -74,10 +73,10 @@
 
         .progress-bar {
             width: 250px;
-            height: 3px;
+            height: 2px;
             background: rgba(255, 255, 255, 0.05);
             margin-top: 15px;
-            border-radius: 3px;
+            border-radius: 2px;
             overflow: hidden;
         }
 
@@ -86,13 +85,12 @@
             width: 0;
             background: #00f0ff;
             box-shadow: 0 0 10px #00f0ff;
-            animation: fillProgress 3s forwards ease-in-out;
+            animation: fillProgress 2.5s forwards ease-in-out;
         }
 
         @keyframes fillProgress {
             0% { width: 0%; }
-            40% { width: 30%; }
-            70% { width: 85%; }
+            50% { width: 45%; }
             100% { width: 100%; }
         }
 
@@ -101,33 +99,34 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            padding: 20px;
+            padding: 25px;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Header Config */
+        /* Header Setup */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
 
         .system-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             letter-spacing: 2px;
             color: #00f0ff;
         }
 
         .system-status {
-            font-size: 14px;
+            font-size: 13px;
+            letter-spacing: 1px;
         }
 
         .online {
@@ -135,42 +134,44 @@
             text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
         }
 
-        /* Dashboard Grid Layout (Three Panels) */
+        /* Dashboard Responsive Grid */
         .dashboard {
             flex: 1;
             display: grid;
             grid-template-columns: 1fr 2fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
+            height: calc(100% - 120px);
         }
 
-        @media (max-width: 900px) {
-            .dashboard { grid-template-columns: 1fr; }
+        @media (max-width: 950px) {
+            .dashboard { grid-template-columns: 1fr; overflow-y: auto; }
+            body { overflow: auto; }
         }
 
-        /* Panels Styling (Touch-to-Assemble Theme) */
+        /* Stark Panel Designing */
         .panel {
-            background: rgba(5, 15, 25, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.15);
+            background: rgba(4, 8, 15, 0.8);
+            border: 1px solid rgba(0, 240, 255, 0.12);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
+            height: 100%;
         }
 
         .panel:hover {
-            border-color: #00f0ff;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
         }
 
         .panel-header {
-            background: rgba(0, 240, 255, 0.08);
-            padding: 10px;
+            background: rgba(0, 240, 255, 0.05);
+            padding: 12px 15px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            letter-spacing: 1.5px;
+            font-size: 11px;
+            letter-spacing: 2px;
             color: #00f0ff;
-            border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.12);
         }
 
         .panel-body {
@@ -179,72 +180,121 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            overflow-y: auto;
         }
 
-        /* Specific Panel Components */
         .matrix-text {
-            font-size: 15px;
+            font-size: 14px;
             letter-spacing: 0.5px;
+            line-height: 1.8;
         }
 
+        /* --- ACTIVE TERMINAL CONSOLE --- */
         .console-screen {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(1, 3, 7, 0.9);
+            border: 1px solid rgba(0, 240, 255, 0.08);
             border-radius: 4px;
-            border: 1px dashed rgba(0, 240, 255, 0.2);
             font-size: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-between;
+        }
+
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
         }
 
         .line {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             line-height: 1.6;
+            animation: textFadeIn 0.3s ease-out;
         }
 
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateX(-5px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Terminal Input Area */
+        .terminal-input-container {
+            display: flex;
+            align-items: center;
+            border-top: 1px dashed rgba(0, 240, 255, 0.15);
+            padding-top: 12px;
+            margin-top: 10px;
+        }
+
+        .input-prompt {
+            color: #00f0ff;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .command-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* Mission Cards */
         .project-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border-left: 3px solid #00f0ff;
-            padding: 12px;
+            padding: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-radius: 0 4px 4px 0;
+            transition: background 0.2s;
+        }
+        
+        .project-card:hover {
+            background: rgba(0, 240, 255, 0.03);
         }
 
-        .proj-title { font-weight: bold; color: #fff; }
-        .proj-status { font-size: 11px; color: #888; }
+        .proj-title { font-weight: bold; color: #fff; letter-spacing: 0.5px; }
+        .proj-status { font-size: 11px; color: #6688a3; }
 
-        /* Footer Config */
+        /* Footer System */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(0, 240, 255, 0.2);
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
             padding-top: 15px;
         }
 
         .footer-note {
             font-size: 11px;
-            color: rgba(165, 216, 255, 0.4);
+            color: rgba(165, 216, 255, 0.3);
+            letter-spacing: 1px;
         }
 
-        /* Action Button */
         .action-btn {
             background: transparent;
             border: 1px solid #00f0ff;
             color: #00f0ff;
             padding: 10px 24px;
             font-family: 'Orbitron', sans-serif;
-            font-size: 12px;
-            letter-spacing: 1px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
             cursor: pointer;
             border-radius: 4px;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
         }
 
         .action-btn:hover {
             background: #00f0ff;
-            color: #05070a;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            color: #030508;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
             font-weight: bold;
         }
     </style>
@@ -263,7 +313,7 @@
             <div class="system-status">SYSTEM STATUS: <span class="online">ONLINE</span></div>
         </header>
 
-        <main class="dashboard">
+        <div class="dashboard">
             
             <section class="panel profile-panel">
                 <div class="panel-header">USER PROFILE</div>
@@ -271,16 +321,23 @@
                     <p class="matrix-text">> USER: <span class="highlight">ANWARULLAH</span></p>
                     <p class="matrix-text">> ACCESS_LEVEL: <span class="highlight">ADMINISTRATOR</span></p>
                     <p class="matrix-text">> REGION: <span class="highlight">KASHMIR_PK</span></p>
+                    <p class="matrix-text">> SYSTEM_HOST: <span class="highlight">GITHUB_PAGES</span></p>
                 </div>
             </section>
 
             <section class="panel console-panel">
                 <div class="panel-header">CENTRAL COMMAND CONSOLE</div>
                 <div class="panel-body console-screen">
-                    <div class="terminal-output">
+                    <div class="terminal-output" id="terminalLog">
                         <p class="line yellow">> Accessing global servers... Done.</p>
                         <p class="line">> System Diagnostics: 100% Operational.</p>
-                        <p class="line cyan">> Welcome back, sir. All systems are ready for deployment.</p>
+                        <p class="line cyan">> Welcome back, sir. All systems are fully initialized.</p>
+                        <p class="line alpha" style="color: #6688a3;">[Type 'help' to see available system commands]</p>
+                    </div>
+                    
+                    <div class="terminal-input-container">
+                        <span class="input-prompt">JARVIS_></span>
+                        <input type="text" id="cmdInput" class="command-input" placeholder="Enter command..." autocomplete="off" autofocus>
                     </div>
                 </div>
             </section>
@@ -296,26 +353,29 @@
                         <span class="proj-title">WEB_CORE_INTERFACE</span>
                         <span class="proj-status">STARK_LEVEL_UI</span>
                     </div>
+                    <div class="project-card">
+                        <span class="proj-title">TERMINAL_INTEGRATION</span>
+                        <span class="proj-status active green">LIVE</span>
+                    </div>
                 </div>
             </section>
 
-        </main>
+        </div>
 
         <footer>
-            <div class="footer-note">STARK INDUSTRIES // SECURE INTERFACE</div>
-            <button class="action-btn" onclick="systemAlert()">ENGAGE PROTOCOL</button>
+            <div class="footer-note">STARK INDUSTRIES // SECURE INTELLIGENCE INTERFACE</div>
+            <button class="action-btn" onclick="executeProtocol()">ENGAGE HOUSE PARTY PROTOCOL</button>
         </footer>
     </div>
 
     <script>
-        // Smooth Boot-up Sequence
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 const mainUI = document.getElementById('main-interface');
                 
                 loader.style.opacity = '0';
-                loader.style.transition = 'opacity 0.8s ease';
+                loader.style.transition = 'opacity 0.5s ease';
                 
                 setTimeout(() => {
                     loader.style.display = 'none';
@@ -323,17 +383,70 @@
                     mainUI.style.opacity = '0';
                     setTimeout(() => {
                         mainUI.style.opacity = '1';
-                        mainUI.style.transition = 'opacity 1.5s ease';
+                        mainUI.style.transition = 'opacity 1s ease';
                     }, 50);
-                }, 800);
-            }, 3500); // 3.5 seconds boot animation
+                }, 500);
+            }, 2500);
         });
 
-        function systemAlert() {
-            alert("SYSTEM WARNING: Stark Interface Online. Protocol 11 Engaged.");
+        // Smart Terminal Logic
+        const cmdInput = document.getElementById('cmdInput');
+        const terminalLog = document.getElementById('terminalLog');
+
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                if(command === "") return;
+
+                // Log User Input
+                appendLog(`JARVIS_> ${this.value}`, 'white');
+                
+                // Process Intelligence Command
+                processCommand(command);
+                
+                // Clear Box & Scroll
+                this.value = "";
+                terminalLog.scrollTop = terminalLog.scrollHeight;
+            }
+        });
+
+        function appendLog(text, className = '') {
+            const p = document.createElement('p');
+            p.className = `line ${className}`;
+            p.innerText = text;
+            terminalLog.appendChild(p);
+        }
+
+        function processCommand(cmd) {
+            setTimeout(() => {
+                if (cmd === 'help') {
+                    appendLog('Available Commands:', 'yellow');
+                    appendLog(' - status  : Runs complete diagnostics check.');
+                    appendLog(' - clear   : Clears terminal screen log.');
+                    appendLog(' - creator : Displays master authorization parameters.');
+                    appendLog(' - alert   : Triggers structural warning sequence.');
+                } else if (cmd === 'status') {
+                    appendLog('> Fetching mainframes... OK', 'cyan');
+                    appendLog('> Core Temperature: 42°C (Optimal)', 'green');
+                    appendLog('> Security Protocols: Shield at 100%', 'green');
+                } else if (cmd === 'creator') {
+                    appendLog('> ACCESS AUTHORIZED // OWNER: ANWARULLAH', 'highlight');
+                    appendLog('> DESIGNATION: Head of Stark Tech Development.', 'cyan');
+                } else if (cmd === 'clear') {
+                    terminalLog.innerHTML = `<p class="line alpha" style="color: #6688a3;">[System logs cleared. Type 'help' for options]</p>`;
+                } else if (cmd === 'alert') {
+                    appendLog('!! SYSTEM ALERT: INTRUSION ATTEMPT BLOCKED !!', 'red');
+                } else {
+                    appendLog(`JARVIS: Command '${cmd}' unrecognized. Accessing external databanks... Error. Type 'help'.`, 'red');
+                }
+                terminalLog.scrollTop = terminalLog.scrollHeight;
+            }, 300);
+        }
+
+        function executeProtocol() {
+            appendLog('>> INITIALIZING HOUSE PARTY PROTOCOL. Deploying all units.', 'red');
+            alert("House Party Protocol Activated. All armors preparing for flight.");
         }
     </script>
 </body>
-</html></pre>
-        </body>
-    </html>
+</html>
