@@ -271,7 +271,7 @@
             letter-spacing: 1px;
         }
 
-        /* Mission Cards */
+        /* Mission Cards (Interactive) */
         .project-card {
             background: rgba(255, 255, 255, 0.01);
             border-left: 3px solid #00f0ff;
@@ -280,6 +280,13 @@
             justify-content: space-between;
             align-items: center;
             border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .project-card:hover {
+            background: rgba(0, 240, 255, 0.05);
+            border-left-width: 6px;
         }
 
         .proj-title { font-weight: bold; color: #fff; letter-spacing: 0.5px; }
@@ -355,13 +362,13 @@
             </section>
 
             <section class="panel console-panel">
-                <div class="panel-header">CENTRAL COMMAND CONSOLE</div>
+                <div class="panel-header" id="centerPanelTitle">CENTRAL COMMAND CONSOLE</div>
                 <div class="panel-body console-screen">
                     <div class="terminal-output" id="terminalLog">
                         <p class="line yellow">> Accessing global servers... Done.</p>
                         <p class="line">> System Diagnostics: 100% Operational.</p>
                         <p class="line cyan">> Welcome back, sir. All systems are fully initialized.</p>
-                        <p class="line alpha" style="color: #6688a3;">[Type 'help' to see available system commands]</p>
+                        <p class="line alpha" style="color: #6688a3;">[Type 'help' to see available system commands or click a mission]</p>
                     </div>
                     
                     <div class="terminal-input-container">
@@ -374,17 +381,17 @@
             <section class="panel projects-panel">
                 <div class="panel-header">ACTIVE MISSIONS</div>
                 <div class="panel-body project-list">
-                    <div class="project-card">
+                    <div class="project-card" onclick="openStatPulse()">
                         <span class="proj-title">PROJECT_STATPULSE</span>
-                        <span class="proj-status">CINEMATIC_DOCS</span>
+                        <span class="proj-status yellow">CLICK TO OPEN</span>
                     </div>
-                    <div class="project-card">
-                        <span class="proj-title">WEB_CORE_INTERFACE</span>
-                        <span class="proj-status">STARK_LEVEL_UI</span>
+                    <div class="project-card" onclick="openTerminalDefault()">
+                        <span class="proj-title">MAIN_TERMINAL</span>
+                        <span class="proj-status green">CORE</span>
                     </div>
                     <div class="project-card">
                         <span class="proj-title">TERMINAL_INTEGRATION</span>
-                        <span class="proj-status active green">LIVE</span>
+                        <span class="proj-status green">LIVE</span>
                     </div>
                 </div>
             </section>
@@ -398,6 +405,29 @@
     </div>
 
     <script>
+        // Web Audio Synthesizer for High-Tech Cyber Beeps
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playCyberSound(frequency = 600, duration = 0.08, type = 'sine') {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.type = type;
+                oscillator.frequency.value = frequency;
+                
+                gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + duration);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log("Audio not triggered yet."); }
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
@@ -414,9 +444,10 @@
                         mainUI.style.opacity = '1';
                         mainUI.style.transition = 'opacity 0.8s ease';
                         document.getElementById('cmdInput').focus();
+                        playCyberSound(800, 0.2, 'triangle'); // System Boot Sound
                     }, 50);
                 }, 400);
-            }, 1800); // Faster optimized boot sequence
+            }, 1800);
             
             startClock();
             startResourceStream();
@@ -457,21 +488,16 @@
         const terminalLog = document.getElementById('terminalLog');
 
         cmdInput.addEventListener('keydown', function(e) {
+            playCyberSound(450, 0.04, 'sine'); // Key press audio vibe
             if (e.key === 'Enter') {
                 const command = this.value.trim().toLowerCase();
                 if(command === "") return;
 
-                // Log User Input
+                playCyberSound(700, 0.08, 'sine'); // Enter response audio vibe
                 appendLog(`JARVIS_> ${this.value}`, 'white');
-                
-                // Process Intelligence Command
                 processCommand(command);
-                
-                // Clear Box & Scroll
                 this.value = "";
-                setTimeout(() => {
-                    terminalLog.scrollTop = terminalLog.scrollHeight;
-                }, 50);
+                setTimeout(() => { terminalLog.scrollTop = terminalLog.scrollHeight; }, 50);
             }
         });
 
@@ -499,6 +525,7 @@
                 } else if (cmd === 'clear') {
                     terminalLog.innerHTML = `<p class="line alpha" style="color: #6688a3;">[System logs cleared. Type 'help' for options]</p>`;
                 } else if (cmd === 'alert') {
+                    playCyberSound(300, 0.3, 'sawtooth');
                     appendLog('!! SYSTEM ALERT: INTRUSION ATTEMPT BLOCKED !!', 'red');
                 } else {
                     appendLog(`JARVIS: Command '${cmd}' unrecognized. Type 'help' for system matrix parameters.`, 'red');
@@ -507,7 +534,35 @@
             }, 150);
         }
 
+        // Interactive Missions Functions
+        function openStatPulse() {
+            playCyberSound(900, 0.12, 'triangle');
+            document.getElementById('centerPanelTitle').innerText = "WORKSPACE // STATPULSE US";
+            terminalLog.innerHTML = `
+                <p class="line highlight">==== STATPULSE US: VIDEO PRODUCTION CENTER ====</p>
+                <p class="line cyan">> Target Audience: United States Market (US Databanks)</p>
+                <p class="line cyan">> Content Strategy: High-Fidelity English Cinematic Documentaries</p>
+                <br>
+                <p class="line yellow">[ACTIVE SCRIPT PIPELINE]</p>
+                <p class="line">> 1. US Economic History Shifts -- (Research Stage)</p>
+                <p class="line">> 2. The Mega-Infrastructure Race -- (Drafting Audio Cues)</p>
+                <br>
+                <p class="line green">> DaVinci Resolve & CapCut status: Render engine ready.</p>
+                <p class="line alpha" style="color: #6688a3;">[Click 'MAIN_TERMINAL' on the right panel to return to command mode]</p>
+            `;
+        }
+
+        function openTerminalDefault() {
+            playCyberSound(600, 0.08, 'sine');
+            document.getElementById('centerPanelTitle').innerText = "CENTRAL COMMAND CONSOLE";
+            terminalLog.innerHTML = `
+                <p class="line yellow">> Main Console Restored.</p>
+                <p class="line cyan">> JARVIS core interface online. Type commands freely.</p>
+            `;
+        }
+
         function executeProtocol() {
+            playCyberSound(350, 0.4, 'sawtooth');
             appendLog('>> INITIALIZING HOUSE PARTY PROTOCOL. Deploying all units.', 'red');
             alert("House Party Protocol Activated. All armors preparing for flight.");
             terminalLog.scrollTop = terminalLog.scrollHeight;
