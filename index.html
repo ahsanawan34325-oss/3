@@ -402,3 +402,116 @@
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 const mainUI = document.getElementById('main-interface');
+                
+                loader.style.opacity = '0';
+                loader.style.transition = 'opacity 0.4s ease';
+                
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    mainUI.classList.remove('hidden');
+                    mainUI.style.opacity = '0';
+                    setTimeout(() => {
+                        mainUI.style.opacity = '1';
+                        mainUI.style.transition = 'opacity 0.8s ease';
+                        document.getElementById('cmdInput').focus();
+                    }, 50);
+                }, 400);
+            }, 1800); // Faster optimized boot sequence
+            
+            startClock();
+            startResourceStream();
+        });
+
+        // Real-time Clock Engine
+        function startClock() {
+            const clockEl = document.getElementById('starkClock');
+            setInterval(() => {
+                const now = new Date();
+                let hours = String(now.getHours()).padStart(2, '0');
+                let minutes = String(now.getMinutes()).padStart(2, '0');
+                let seconds = String(now.getSeconds()).padStart(2, '0');
+                clockEl.innerText = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        // Live CPU & RAM Simulator Engine
+        function startResourceStream() {
+            const cpuEl = document.getElementById('cpuLoad');
+            const memEl = document.getElementById('memLoad');
+            setInterval(() => {
+                let randomCpu = Math.floor(Math.random() * (22 - 7 + 1)) + 7;
+                let randomMem = (Math.random() * (2.6 - 2.2) + 2.2).toFixed(2);
+                cpuEl.innerText = `${randomCpu}%`;
+                memEl.innerText = `${randomMem} GB`;
+                
+                if(randomCpu > 16) {
+                    cpuEl.className = 'yellow';
+                } else {
+                    cpuEl.className = 'green';
+                }
+            }, 2000);
+        }
+
+        // Smart Terminal Logic
+        const cmdInput = document.getElementById('cmdInput');
+        const terminalLog = document.getElementById('terminalLog');
+
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim().toLowerCase();
+                if(command === "") return;
+
+                // Log User Input
+                appendLog(`JARVIS_> ${this.value}`, 'white');
+                
+                // Process Intelligence Command
+                processCommand(command);
+                
+                // Clear Box & Scroll
+                this.value = "";
+                setTimeout(() => {
+                    terminalLog.scrollTop = terminalLog.scrollHeight;
+                }, 50);
+            }
+        });
+
+        function appendLog(text, className = '') {
+            const p = document.createElement('p');
+            p.className = `line ${className}`;
+            p.innerText = text;
+            terminalLog.appendChild(p);
+        }
+
+        function processCommand(cmd) {
+            setTimeout(() => {
+                if (cmd === 'help') {
+                    appendLog('Available Commands:', 'yellow');
+                    appendLog(' - status  : Runs complete diagnostics check.');
+                    appendLog(' - clear   : Clears terminal screen log.');
+                    appendLog(' - creator : Displays master authorization parameters.');
+                    appendLog(' - alert   : Triggers structural warning sequence.');
+                } else if (cmd === 'status') {
+                    appendLog('> Fetching mainframes... OK', 'cyan');
+                    appendLog(`> Security Protocols: Shield at 100%`, 'green');
+                } else if (cmd === 'creator') {
+                    appendLog('> ACCESS AUTHORIZED // OWNER: ANWARULLAH', 'highlight');
+                    appendLog('> DESIGNATION: Head of Stark Tech Development.', 'cyan');
+                } else if (cmd === 'clear') {
+                    terminalLog.innerHTML = `<p class="line alpha" style="color: #6688a3;">[System logs cleared. Type 'help' for options]</p>`;
+                } else if (cmd === 'alert') {
+                    appendLog('!! SYSTEM ALERT: INTRUSION ATTEMPT BLOCKED !!', 'red');
+                } else {
+                    appendLog(`JARVIS: Command '${cmd}' unrecognized. Type 'help' for system matrix parameters.`, 'red');
+                }
+                terminalLog.scrollTop = terminalLog.scrollHeight;
+            }, 150);
+        }
+
+        function executeProtocol() {
+            appendLog('>> INITIALIZING HOUSE PARTY PROTOCOL. Deploying all units.', 'red');
+            alert("House Party Protocol Activated. All armors preparing for flight.");
+            terminalLog.scrollTop = terminalLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>
