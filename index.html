@@ -15,11 +15,24 @@
         }
 
         body {
-            background-color: #030508; /* Ultra Dark Minimal Black */
+            background-color: #020406; /* Core Stark Black */
             color: #a5d8ff; 
             font-family: 'Share Tech Mono', monospace;
             overflow: hidden;
             height: 100vh;
+            position: relative;
+        }
+
+        /* Holographic Grid Background Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Glowing text effects */
@@ -33,7 +46,7 @@
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #020305;
+            background-color: #010203;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -85,12 +98,12 @@
             width: 0;
             background: #00f0ff;
             box-shadow: 0 0 10px #00f0ff;
-            animation: fillProgress 2.5s forwards ease-in-out;
+            animation: fillProgress 2s forwards ease-in-out;
         }
 
         @keyframes fillProgress {
             0% { width: 0%; }
-            50% { width: 45%; }
+            50% { width: 60%; }
             100% { width: 100%; }
         }
 
@@ -100,6 +113,8 @@
             flex-direction: column;
             height: 100vh;
             padding: 25px;
+            position: relative;
+            z-index: 1;
         }
 
         .hidden {
@@ -124,6 +139,19 @@
             color: #00f0ff;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .live-clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #00f0ff;
+            letter-spacing: 1px;
+        }
+
         .system-status {
             font-size: 13px;
             letter-spacing: 1px;
@@ -134,7 +162,7 @@
             text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
         }
 
-        /* Dashboard Responsive Grid */
+        /* Dashboard Grid */
         .dashboard {
             flex: 1;
             display: grid;
@@ -151,21 +179,22 @@
 
         /* Stark Panel Designing */
         .panel {
-            background: rgba(4, 8, 15, 0.8);
+            background: rgba(3, 6, 12, 0.85);
             border: 1px solid rgba(0, 240, 255, 0.12);
             border-radius: 4px;
             display: flex;
             flex-direction: column;
             height: 100%;
+            backdrop-filter: blur(2px);
         }
 
         .panel:hover {
-            border-color: rgba(0, 240, 255, 0.4);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+            border-color: rgba(0, 240, 255, 0.35);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.08);
         }
 
         .panel-header {
-            background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.04);
             padding: 12px 15px;
             font-family: 'Orbitron', sans-serif;
             font-size: 11px;
@@ -191,14 +220,13 @@
 
         /* --- ACTIVE TERMINAL CONSOLE --- */
         .console-screen {
-            background: rgba(1, 3, 7, 0.9);
-            border: 1px solid rgba(0, 240, 255, 0.08);
+            background: rgba(1, 2, 4, 0.95);
+            border: 1px solid rgba(0, 240, 255, 0.05);
             border-radius: 4px;
             font-size: 14px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-between;
         }
 
         .terminal-output {
@@ -210,11 +238,11 @@
         .line {
             margin-bottom: 10px;
             line-height: 1.6;
-            animation: textFadeIn 0.3s ease-out;
+            animation: textFadeIn 0.2s ease-out;
         }
 
         @keyframes textFadeIn {
-            from { opacity: 0; transform: translateX(-5px); }
+            from { opacity: 0; transform: translateX(-3px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
@@ -222,7 +250,7 @@
         .terminal-input-container {
             display: flex;
             align-items: center;
-            border-top: 1px dashed rgba(0, 240, 255, 0.15);
+            border-top: 1px dashed rgba(0, 240, 255, 0.12);
             padding-top: 12px;
             margin-top: 10px;
         }
@@ -253,11 +281,6 @@
             justify-content: space-between;
             align-items: center;
             border-radius: 0 4px 4px 0;
-            transition: background 0.2s;
-        }
-        
-        .project-card:hover {
-            background: rgba(0, 240, 255, 0.03);
         }
 
         .proj-title { font-weight: bold; color: #fff; letter-spacing: 0.5px; }
@@ -293,7 +316,7 @@
 
         .action-btn:hover {
             background: #00f0ff;
-            color: #030508;
+            color: #020406;
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
             font-weight: bold;
         }
@@ -310,7 +333,10 @@
     <div id="main-interface" class="hidden">
         <header>
             <div class="system-title">JARVIS // CORE_v3.0</div>
-            <div class="system-status">SYSTEM STATUS: <span class="online">ONLINE</span></div>
+            <div class="header-right">
+                <div class="live-clock" id="starkClock">00:00:00</div>
+                <div class="system-status">SYSTEM STATUS: <span class="online">ONLINE</span></div>
+            </div>
         </header>
 
         <div class="dashboard">
@@ -322,6 +348,10 @@
                     <p class="matrix-text">> ACCESS_LEVEL: <span class="highlight">ADMINISTRATOR</span></p>
                     <p class="matrix-text">> REGION: <span class="highlight">KASHMIR_PK</span></p>
                     <p class="matrix-text">> SYSTEM_HOST: <span class="highlight">GITHUB_PAGES</span></p>
+                    <p class="matrix-text" style="margin-top: 10px; border-top: 1px solid rgba(0,240,255,0.1); padding-top: 10px;">
+                        > CPU_LOAD: <span class="green" id="cpuLoad">12%</span><br>
+                        > MEM_CORE: <span class="cyan" id="memLoad">2.4 GB</span>
+                    </p>
                 </div>
             </section>
 
@@ -386,8 +416,42 @@
                         mainUI.style.transition = 'opacity 1s ease';
                     }, 50);
                 }, 500);
-            }, 2500);
+            }, 2000);
+            
+            // Start real-time engines
+            startClock();
+            startResourceStream();
         });
+
+        // Real-time Clock Engine
+        function startClock() {
+            const clockEl = document.getElementById('starkClock');
+            setInterval(() => {
+                const now = new Date();
+                let hours = String(now.getHours()).padStart(2, '0');
+                let minutes = String(now.getMinutes()).padStart(2, '0');
+                let seconds = String(now.getSeconds()).padStart(2, '0');
+                clockEl.innerText = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        // Live CPU & RAM Simulator Engine
+        function startResourceStream() {
+            const cpuEl = document.getElementById('cpuLoad');
+            const memEl = document.getElementById('memLoad');
+            setInterval(() => {
+                let randomCpu = Math.floor(Math.random() * (24 - 8 + 1)) + 8;
+                let randomMem = (Math.random() * (2.8 - 2.1) + 2.1).toFixed(2);
+                cpuEl.innerText = `${randomCpu}%`;
+                memEl.innerText = `${randomMem} GB`;
+                
+                if(randomCpu > 18) {
+                    cpuEl.className = 'yellow';
+                } else {
+                    cpuEl.className = 'green';
+                }
+            }, 2500);
+        }
 
         // Smart Terminal Logic
         const cmdInput = document.getElementById('cmdInput');
@@ -427,7 +491,7 @@
                     appendLog(' - alert   : Triggers structural warning sequence.');
                 } else if (cmd === 'status') {
                     appendLog('> Fetching mainframes... OK', 'cyan');
-                    appendLog('> Core Temperature: 42°C (Optimal)', 'green');
+                    appendLog(`> Core Clock Synchronized.`, 'cyan');
                     appendLog('> Security Protocols: Shield at 100%', 'green');
                 } else if (cmd === 'creator') {
                     appendLog('> ACCESS AUTHORIZED // OWNER: ANWARULLAH', 'highlight');
@@ -440,7 +504,7 @@
                     appendLog(`JARVIS: Command '${cmd}' unrecognized. Accessing external databanks... Error. Type 'help'.`, 'red');
                 }
                 terminalLog.scrollTop = terminalLog.scrollHeight;
-            }, 300);
+            }, 250);
         }
 
         function executeProtocol() {
